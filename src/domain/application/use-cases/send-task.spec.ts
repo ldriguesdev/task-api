@@ -6,11 +6,12 @@ describe('Send task', () => {
     const tasksRepository = new InMemoryTasksRepository();
     const sut = new SendTaskUseCase(tasksRepository);
 
-    await sut.handle({
+    const { task } = await sut.handle({
       description: 'this is description',
       title: 'this is title',
     });
 
     expect(tasksRepository.tasks).toHaveLength(1);
+    expect(tasksRepository.tasks[0]).toEqual(task);
   });
 });
